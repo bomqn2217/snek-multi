@@ -13,14 +13,14 @@ node ('Ubuntu-app-agent'){
         sh 'echo Build-and-tag'
     /* This builds the actual image; synonymous to
          * docker build on the command line */
-        //app = docker.build("bomqn1998/snake")
+        app = docker.build("bomqn1998/snake")
     }
     stage('Post-to-dockerhub') {
         sh 'echo Post-to-dockerhub'
         
-     /*docker.withRegistry('https://registry.hub.docker.com', 'docker-creds') {
+     docker.withRegistry('https://registry.hub.docker.com', 'docker-creds') {
             app.push("latest")
-        			}*/
+        			}
          }
     /*stage('SECURITY-IMAGE-SCANNER'){
         build 'SECURITY-IMAGE-SCANNER-AQUAMICROSCANNER'
@@ -30,8 +30,8 @@ node ('Ubuntu-app-agent'){
     stage('Pull-image-server') {
         sh "echo Pull-image-server"
     
-         /*sh "docker-compose down"
-         sh "docker-compose up -d"	*/
+         sh "docker-compose down"
+         sh "docker-compose up -d"	
       }
     
     /*stage('DAST')
