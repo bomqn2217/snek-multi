@@ -13,6 +13,16 @@ app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'favicon.png')));
 
+// set up rate limiter: maximum of five requests per minute
+var RateLimit = require('express-rate-limit');
+var limiter = new RateLimit({
+  windowMs: 1*60*1000, // 1 minute
+  max: 15
+});
+
+// apply rate limiter to all requests
+app.use(limiter);
+
 // Redirect to the main page
 app.get('/', (request, response) => {
     response.sendFile('game.html', { root: path.join(__dirname, 'app/views') });
